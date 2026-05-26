@@ -1,9 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
-# SQLite 파일 기반 DB를 사용합니다. board.db 파일이 자동으로 생성됩니다.
-# PostgreSQL을 쓰려면 "postgresql://user:password@localhost/dbname" 형식으로 바꾸면 됩니다.
-SQLALCHEMY_DATABASE_URL = "sqlite:///./board.db"
+import os
+
+# 로컬 개발: ./board.db / Docker: DATABASE_URL 환경변수로 주입
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./board.db")
 
 # engine: DB와 실제로 연결하는 객체입니다.
 # check_same_thread=False 는 SQLite 전용 설정으로, FastAPI가 여러 스레드를 쓰기 때문에 필요합니다.

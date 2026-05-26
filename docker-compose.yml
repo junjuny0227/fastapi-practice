@@ -2,9 +2,14 @@ services:
   api:
     build:
       context: .
-      network: host    # 빌드 중 패키지 다운로드 시 호스트 네트워크 사용
+      network: host
     ports:
-      - "80:8000"    # GSM SV HTTP 포트 → VM 80번 → 컨테이너 8000번
+      - "80:8000"
     restart: unless-stopped
+    environment:
+      - DATABASE_URL=sqlite:////data/board.db
     volumes:
-      - ./board.db:/app/board.db    # DB 파일을 호스트에 유지합니다.
+      - board_db:/data    # Named Volume: Docker가 디렉터리를 직접 관리합니다.
+
+volumes:
+  board_db:

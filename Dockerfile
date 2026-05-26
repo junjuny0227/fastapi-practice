@@ -5,6 +5,8 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
 WORKDIR /app
 
+RUN mkdir -p /data
+
 # 의존성 파일을 먼저 복사해 레이어 캐시를 활용합니다.
 # 소스 코드가 바뀌어도 의존성이 동일하면 이 레이어는 재빌드하지 않습니다.
 COPY pyproject.toml uv.lock ./
