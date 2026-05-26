@@ -1,0 +1,8 @@
+services:
+  api:
+    build: .
+    ports:
+      - "80:8000"    # GSM SV HTTP 포트 → VM 80번 → 컨테이너 8000번
+    restart: unless-stopped
+    volumes:
+      - ./board.db:/app/board.db    # DB 파일을 호스트에 유지합니다.
